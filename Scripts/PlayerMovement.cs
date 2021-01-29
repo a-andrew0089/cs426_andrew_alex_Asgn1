@@ -37,7 +37,5 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKey(KeyCode.A))
             t.rotation *= Quaternion.Euler(0, -rotationSpeed * Time.deltaTime, 0);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-            rb.AddForce(t.up * force);
     }
 }
