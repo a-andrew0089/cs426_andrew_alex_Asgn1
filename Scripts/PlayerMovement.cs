@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     public float rotationSpeed = 90;
     public float force = 700f;
 
+    public GameObject cannon;
+    public GameObject bullet;
+
     Rigidbody rb;
     Transform t;
 
@@ -36,6 +39,17 @@ public class PlayerMovement : MonoBehaviour
             t.rotation *= Quaternion.Euler(0, rotationSpeed * Time.deltaTime, 0);
         else if (Input.GetKey(KeyCode.A))
             t.rotation *= Quaternion.Euler(0, -rotationSpeed * Time.deltaTime, 0);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            rb.AddForce(t.up * force);
+
+        // https://docs.unity3d.com/ScriptReference/Input.html
+        if (Input.GetButtonDown("Fire1"))
+        {
+            GameObject newBullet = GameObject.Instantiate(bullet, cannon.transform.position, cannon.transform.rotation) as GameObject;
+            newBullet.GetComponent<Rigidbody>().velocity += Vector3.up * 2;
+            newBullet.GetComponent<Rigidbody>().AddForce(newBullet.transform.forward * 1500);
+        }
 
     }
 }
